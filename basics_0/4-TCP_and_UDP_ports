@@ -1,18 +1,2 @@
 #!/bin/bash
-
-# Enforce root privileges to ensure PID and program names can be retrieved
-if [ "$EUID" -ne 0 ]; then
-    echo "Error: This script must be run as root or via sudo to view process PIDs." >&2
-    exit 1
-fi
-
-echo "Displaying all listening network sockets (TCP & UDP)..."
-echo "--------------------------------------------------------"
-
-# Execute the socket statistics utility with targeted flags
-# -l : Display only listening sockets
-# -t : Include TCP sockets
-# -u : Include UDP sockets
-# -n : Show numerical port numbers (prevents slow DNS lookups)
-# -p : Show process identifiers (PID) and program names
-ss -ltunp
+netstat -p | grep LISTEN
